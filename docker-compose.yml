@@ -1,0 +1,12 @@
+version: "3"
+volumes: {}
+services:
+  cowsay:
+    image: docker/whalesay
+    environment: {}
+    depends_on: []
+    command:
+      - cowsay
+      - Hello DevX!
+    restart: always
+    volumes: []

@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cowsay
+  labels:
+    app: cowsay
+spec:
+  selector:
+    matchLabels:
+      app: cowsay
+  template:
+    metadata:
+      labels:
+        app: cowsay
+      annotations: {}
+    spec:
+      containers:
+        - name: default
+          image: docker/whalesay
+          command:
+            - cowsay
+          args:
+            - Hello DevX!
+          env: []
+      restartPolicy: Always
+      serviceAccountName: cowsay
+      securityContext:
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
