@@ -2,8 +2,12 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: cowsay
+  namespace: cowsay
   labels:
     app: cowsay
+    team: NX-GSS
+    env: prod
+  annotations: {}
 spec:
   selector:
     matchLabels:
@@ -16,15 +20,18 @@ spec:
     spec:
       containers:
         - name: default
-          image: docker/whalesay
+          image: vnovoselskiy/whalesay
           command:
             - cowsay
           args:
             - Hello DevX!
-          env: []
+          env:
+            - name: API_KEY
+              value: dummy
       restartPolicy: Always
       serviceAccountName: cowsay
       securityContext:
         runAsUser: 10000
         runAsGroup: 10000
         fsGroup: 10000
+      tolerations: []

@@ -1,12 +1,13 @@
 version: "3"
 volumes: {}
 services:
-  cowsay:
-    image: docker/whalesay
-    environment: {}
+  whalesay:
+    image: vnovoselskiy/whalesay
+    environment:
+      API_KEY: dummy
     depends_on: []
     command:
       - cowsay
-      - Hello DevX!
+      - 'Hello DevX! Also API_KEY: dummy'
     restart: always
     volumes: []
