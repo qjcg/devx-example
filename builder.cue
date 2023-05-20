@@ -8,9 +8,22 @@ import (
 
 builders: v2alpha1.#Environments & {
 	dev: environments.#Compose
-	prod: flows: {
-		"kubernetes/add-deployment": pipeline: [k8s.#AddDeployment]
-		"kubernetes/add-service": pipeline: [k8s.#AddService]
-		"kubernetes/add-volumes": pipeline: [k8s.#AddWorkloadVolumes]
+
+	prod: {
+		environments.#Kubernetes
+
+		config: namespace: "cowsay"
+
+		flows: {
+			//"kubernetes/add-deployment": pipeline: [k8s.#AddDeployment]
+			//"kubernetes/add-service": pipeline: [k8s.#AddService]
+			//"kubernetes/add-volumes": pipeline: [k8s.#AddWorkloadVolumes]
+			"kubernetes/add-labels": pipeline: [k8s.#AddLabels & {
+				labels: {
+					"team": "NX-GSS"
+					"env":  "prod"
+				}
+			}]
+		}
 	}
 }

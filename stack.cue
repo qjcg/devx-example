@@ -7,22 +7,16 @@ import (
 
 stack: v1.#Stack & {
 	components: {
-		commonSecrets: {
-			traits.#Secret
-			secrets: apiKey: {
-				name:    "apikey-a"
-				version: "4"
-			}
-		}
 
-		cowsay: {
+		whalesay: {
 			traits.#Workload
+
 			containers: default: {
-				image: "docker/whalesay"
+				image: "vnovoselskiy/whalesay"
 				command: ["cowsay"]
-				args: ["Hello DevX!"]
+				args: ["Hello DevX! Also API_KEY: \(env.API_KEY)"]
 				env: {
-					API_KEY: commonSecrets.secrets.apiKey
+					API_KEY: string @guku(generate)
 				}
 			}
 		}
