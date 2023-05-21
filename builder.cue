@@ -12,7 +12,7 @@ builders: v2alpha1.#Environments & {
 	prod: {
 		environments.#Kubernetes
 
-		config: namespace: "cowsay"
+		config: namespace: "whalesay"
 
 		flows: {
 			//"kubernetes/add-deployment": pipeline: [k8s.#AddDeployment]
