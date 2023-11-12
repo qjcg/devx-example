@@ -1,21 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: cowsay
-  namespace: cowsay
+  name: whalesay
+  namespace: whalesay
   labels:
-    app: cowsay
-    team: NX-GSS
+    app: whalesay
+    team: example-team
     env: prod
   annotations: {}
 spec:
   selector:
     matchLabels:
-      app: cowsay
+      app: whalesay
   template:
     metadata:
       labels:
-        app: cowsay
+        app: whalesay
       annotations: {}
     spec:
       containers:
@@ -29,7 +29,7 @@ spec:
             - name: API_KEY
               value: dummy
       restartPolicy: Always
-      serviceAccountName: cowsay
+      serviceAccountName: whalesay
       securityContext:
         runAsUser: 10000
         runAsGroup: 10000

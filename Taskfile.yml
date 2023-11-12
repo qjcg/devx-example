@@ -1,0 +1,21 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+  foobar: Foo
+
+tasks:
+  default:
+    desc: Prints a friendly greeting.
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  foo:
+    desc: Prints some other stuff.
+    cmds:
+      - echo "{{.foobar}}"
+      - echo "horse"
+    silent: true

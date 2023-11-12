@@ -8,6 +8,6 @@ services:
     depends_on: []
     command:
       - cowsay
-      - 'Hello DevX! Also API_KEY: dummy'
+      - Hello DevX!
     restart: always
     volumes: []

@@ -1,13 +1,15 @@
 package main
 
 import (
-	"guku.io/devx/v2alpha1"
-	"guku.io/devx/v2alpha1/environments"
-	k8s "guku.io/devx/v1/transformers/kubernetes"
+	"stakpak.dev/devx/v2alpha1"
+	"stakpak.dev/devx/v2alpha1/environments"
+	k8s "stakpak.dev/devx/v1/transformers/kubernetes"
 )
 
 builders: v2alpha1.#Environments & {
-	dev: environments.#Compose
+	dev: environments.#Compose & {
+		drivers: compose: output: file: "docker-compose.yaml"
+	}
 
 	prod: {
 		environments.#Kubernetes
@@ -20,7 +22,7 @@ builders: v2alpha1.#Environments & {
 			//"kubernetes/add-volumes": pipeline: [k8s.#AddWorkloadVolumes]
 			"kubernetes/add-labels": pipeline: [k8s.#AddLabels & {
 				labels: {
-					"team": "NX-GSS"
+					"team": "example-team"
 					"env":  "prod"
 				}
 			}]
