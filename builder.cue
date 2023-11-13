@@ -8,7 +8,15 @@ import (
 
 builders: v2alpha1.#Environments & {
 	dev: environments.#Compose & {
-		drivers: compose: output: file: "docker-compose.yaml"
+		let outputFile = "docker-compose.yaml"
+
+		drivers: compose: output: file: outputFile
+
+		taskfile: tasks: {
+			fixPerms: cmds: [
+				"chmod -x \(outputFile)",
+			]
+		}
 	}
 
 	prod: {

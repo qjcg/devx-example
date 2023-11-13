@@ -49,6 +49,7 @@ tasks:
     desc: Build dev target.
     cmds:
       - devx build dev
+      - devx run dev fixPerms
     sources:
       - ./*.cue
     generates:
