@@ -2,20 +2,72 @@
 
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-  foobar: Foo
-
 tasks:
   default:
-    desc: Prints a friendly greeting.
+    desc: Demonstrate Taskfile shell features.
+    aliases: ["demo"]
     cmds:
-      - echo "{{.GREETING}}"
-    silent: true
+      - |
+          cat << END
+          GO TEMPLATE FILTERS
 
-  foo:
-    desc: Prints some other stuff.
-    cmds:
-      - echo "{{.foobar}}"
-      - echo "horse"
+          Uppercase: {{.FOOBAR | upper}}
+          Titlecase: {{.FOOBAR | title}}
+          Lowercase: {{.FOOBAR | lower}}
+
+          REDIRECTION
+
+          $(echo STDOUT > /tmp/stdout.txt)
+          $(>&2 echo STDERR > /tmp/stderr.txt)
+          $(echo lower-to-upper | tr a-z A-Z)
+          $(>&2 echo lower-to-upper |& tr a-z A-Z)
+
+          BRACE EXPANSION
+
+          $(echo hello{AAA,BBB,CCC})
+          $(echo hello{1,2,3})
+          $(echo hello{01..10})
+          $(echo hello{01..10..2})
+
+          MULTI-LINE
+
+          {{.LS_OUT}}
+          END
     silent: true
+    vars:
+      FOOBAR: Foo
+      LS_OUT:
+        sh: ls
+
+  build:all:
+    desc: Build all targets.
+    deps:
+      - build:dev
+      - build:prod
+
+  build:dev:
+    desc: Build dev target.
+    cmds:
+      - devx build dev
+    sources:
+      - ./*.cue
+    generates:
+      - docker-compose.yaml
+
+  build:prod:
+    desc: Build prod target.
+    cmds:
+      - devx build prod
+    sources:
+      - builder.cue
+      - stack.cue
+    generates:
+      - build/prod/kubernetes/*.yml
+
+  clean:
+    desc: Remove generated artifacts.
+    cmds:
+      - rm -rf {{.OUT_DEV}} {{.OUT_PROD}}
+    vars:
+      OUT_DEV: docker-compose.yaml
+      OUT_PROD: build
