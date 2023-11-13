@@ -14,7 +14,7 @@ stack: v1.#Stack & {
 			containers: default: {
 				image: "vnovoselskiy/whalesay"
 				command: ["cowsay"]
-				args: ["Hello DevX!"]
+				args: ["Hello, howdy DevX!"]
 				env: {
 					API_KEY: string @guku(generate)
 				}

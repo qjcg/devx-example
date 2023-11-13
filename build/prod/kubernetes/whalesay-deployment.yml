@@ -24,7 +24,7 @@ spec:
           command:
             - cowsay
           args:
-            - Hello DevX!
+            - Hello, howdy DevX!
           env:
             - name: API_KEY
               value: dummy

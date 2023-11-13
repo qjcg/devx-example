@@ -8,6 +8,6 @@ services:
     depends_on: []
     command:
       - cowsay
-      - Hello DevX!
+      - Hello, howdy DevX!
     restart: always
     volumes: []
